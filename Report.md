@@ -1,0 +1,3 @@
+- Splash Screen Done
+- Signing In With Different Accounts Done
+- App Logo Added

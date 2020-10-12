@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Shipping It</string>
+    <string name="sign_in">Sign In</string>
+    <string name="signing_in">Signing In</string>
+    <string name="email">E-mail</string>
+    <string name="password">Password</string>
+    <string name="emailhint">Enter your e-mail here...</string>
+    <string name="passwordhint">Enter your password here...</string>
 </resources>

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "641152855009",
+    "firebase_url": "https://shippingit-24051.firebaseio.com",
+    "project_id": "shippingit-24051",
+    "storage_bucket": "shippingit-24051.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:641152855009:android:636269345d8a1c2733c0a0",
+        "android_client_info": {
+          "package_name": "com.example.shippingit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "641152855009-quogip1ihrurmui21or4js66thrvstlg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPXeiEpF-8r1PyIYFi_aGdWaywWG2k6Xc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "641152855009-quogip1ihrurmui21or4js66thrvstlg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

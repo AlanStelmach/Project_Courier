@@ -30,3 +30,23 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
 }
+
+apply plugin: 'com.android.application'
+// Add this line
+apply plugin: 'com.google.gms.google-services'
+
+dependencies {
+    // Import the Firebase BoM
+    implementation platform('com.google.firebase:firebase-bom:25.12.0')
+
+    // Add the dependencies for the desired Firebase products
+    // https://firebase.google.com/docs/android/setup#available-libraries
+}
+
+dependencies {
+    implementation 'com.google.firebase:firebase-auth:19.4.0'
+}
+
+dependencies {
+    implementation 'com.google.firebase:firebase-database:19.5.0'
+}
