@@ -96,7 +96,7 @@ public class SignIn extends AppCompatActivity {
                                         break;
                                     }
                                 }
-                                DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference().child("Stock Worker");
+                                DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference().child("StockWorker");
                                 reference2.addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {

@@ -1,3 +1,5 @@
 - Splash Screen Done
 - Signing In With Different Accounts Done
 - App Logo Added
+- App Icons Added
+- Signing In While There Is An Active Session
