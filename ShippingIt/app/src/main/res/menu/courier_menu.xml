@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/get_parcels"
+        android:title="@string/get_parcels"
+        android:icon="@mipmap/package_warehouse_brown"
+        ></item>
+    <item android:id="@+id/parcels_to_stock"
+        android:title="@string/parcels_stock"
+        android:icon="@mipmap/package_list_brown"
+        ></item>
+    <item android:id="@+id/parcels_to_deliver"
+        android:title="@string/parcels_delivery"
+        android:icon="@mipmap/package_delivery_brown"
+        ></item>
+    <item android:id="@+id/petrol_usage"
+        android:title="@string/petrol"
+        android:icon="@mipmap/petrol_brown"
+        ></item>
+    <item android:id="@+id/courier_logout"
+        android:title="@string/logout"
+        android:icon="@mipmap/logout_brown"
+        ></item>
+</menu>

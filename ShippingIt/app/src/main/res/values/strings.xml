@@ -6,4 +6,18 @@
     <string name="password">Password</string>
     <string name="emailhint">Enter your e-mail here...</string>
     <string name="passwordhint">Enter your password here...</string>
+    <string name="costs_to_budget">Costs to Budget Chart</string>
+    <string name="daily_stats">Daily Statistics Chart</string>
+    <string name="personal_data">Personal Data of Workers</string>
+    <string name="sent_all">Sent to All Packages Chart</string>
+    <string name="add_user">Add Worker</string>
+    <string name="logout">Log Out</string>
+    <string name="parcel_queue">Parcels at Queue</string>
+    <string name="parcels">Parcels at Stock</string>
+    <string name="get_parcels">Get New Parcels</string>
+    <string name="parcels_stock">Parcels to Stock</string>
+    <string name="parcels_delivery">Parcels to Deliver</string>
+    <string name="petrol">Usage of Petrol</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>

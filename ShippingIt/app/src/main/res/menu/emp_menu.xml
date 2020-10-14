@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/costs_budget"
+        android:title="@string/costs_to_budget"
+        android:icon="@mipmap/budget_brown"
+    ></item>
+    <item android:id="@+id/daily_stats"
+        android:title="@string/daily_stats"
+        android:icon="@mipmap/daily_brown"
+        ></item>
+    <item android:id="@+id/personal_data"
+        android:title="@string/personal_data"
+        android:icon="@mipmap/personal_data_brown"
+        ></item>
+    <item android:id="@+id/package_data"
+        android:title="@string/sent_all"
+        android:icon="@mipmap/sent_all_brown"
+        ></item>
+    <item android:id="@+id/add_user"
+        android:title="@string/add_user"
+        android:icon="@mipmap/add_user_brown"
+        ></item>
+    <item android:id="@+id/emp_logout"
+        android:title="@string/logout"
+        android:icon="@mipmap/logout_brown"
+        ></item>
+
+</menu>
