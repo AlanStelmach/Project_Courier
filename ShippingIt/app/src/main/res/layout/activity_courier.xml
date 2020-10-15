@@ -8,7 +8,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_main"
-    tools:openDrawer="end"
+    tools:openDrawer="start"
     tools:context=".CourierMenu">
 
     <LinearLayout
@@ -25,12 +25,19 @@
             android:padding="5dp"
             app:srcCompat="@mipmap/menu_brown" />
 
-        <FrameLayout
-            android:id="@+id/frag_cont_courier"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingTop="10dp">
 
-        </FrameLayout>
+            <FrameLayout
+                android:id="@+id/frag_cont_courier"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+             android:background="@drawable/shape">
+
+            </FrameLayout>
+        </RelativeLayout>
     </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView

@@ -3,13 +3,17 @@ package com.example.shippingit;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class  StockWorkerMenu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -17,6 +21,7 @@ public class  StockWorkerMenu extends AppCompatActivity implements NavigationVie
     private NavigationView navigationView;
     private ActionBarDrawerToggle toggle;
     private ImageView menu_button;
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +36,13 @@ public class  StockWorkerMenu extends AppCompatActivity implements NavigationVie
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
+        auth = FirebaseAuth.getInstance();
+
+        if(savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.frag_cont_stworker, new ParcelsStock()).commit();
+            navigationView.setCheckedItem(R.id.warehouse_parcel);
+        }
+
         menu_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,6 +53,36 @@ public class  StockWorkerMenu extends AppCompatActivity implements NavigationVie
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId())
+        {
+            case R.id.warehouse_parcel:
+            {
+                getSupportFragmentManager().beginTransaction().replace(R.id.frag_cont_stworker, new ParcelsStock()).commit();
+                navigationView.setCheckedItem(R.id.warehouse_parcel);
+                break;
+            }
+            case R.id.parcel_queue:
+            {
+                getSupportFragmentManager().beginTransaction().replace(R.id.frag_cont_stworker, new ParcelsQueue()).commit();
+                navigationView.setCheckedItem(R.id.parcel_queue);
+                break;
+            }
+            case R.id.stworker_logout:
+            {
+                auth.signOut();
+                Intent intent = new Intent(StockWorkerMenu.this, SignIn.class);
+                startActivity(intent);
+                finish();
+                break;
+            }
+            default:
+            {
+                Toast.makeText(StockWorkerMenu.this, "Error! Something went wrong!", Toast.LENGTH_LONG).show();
+                break;
+            }
+        }
+
+        drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 }

@@ -15,9 +15,11 @@
     <string name="parcel_queue">Parcels at Queue</string>
     <string name="parcels">Parcels at Stock</string>
     <string name="get_parcels">Get New Parcels</string>
-    <string name="parcels_stock">Parcels to Stock</string>
+    <string name="parcels_stock">Add Parcels to Stock</string>
     <string name="parcels_delivery">Parcels to Deliver</string>
     <string name="petrol">Usage of Petrol</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

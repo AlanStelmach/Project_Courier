@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/parcel_queue"
-        android:title="@string/parcel_queue"
-        android:icon="@mipmap/package_list_brown"
-        ></item>
     <item android:id="@+id/warehouse_parcel"
         android:title="@string/parcels"
         android:icon="@mipmap/package_warehouse_brown"
+        ></item>
+    <item android:id="@+id/parcel_queue"
+        android:title="@string/parcel_queue"
+        android:icon="@mipmap/package_list_brown"
         ></item>
     <item android:id="@+id/stworker_logout"
         android:title="@string/logout"

@@ -3,13 +3,17 @@ package com.example.shippingit;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class CourierMenu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -17,6 +21,7 @@ public class CourierMenu extends AppCompatActivity implements NavigationView.OnN
     private NavigationView navigationView;
     private ActionBarDrawerToggle toggle;
     private ImageView menu_button;
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +36,13 @@ public class CourierMenu extends AppCompatActivity implements NavigationView.OnN
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
+        auth = FirebaseAuth.getInstance();
+
+        if(savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.frag_cont_courier, new ParcelsDelivery()).commit();
+            navigationView.setCheckedItem(R.id.parcels_to_deliver);
+        }
+
         menu_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,6 +53,48 @@ public class CourierMenu extends AppCompatActivity implements NavigationView.OnN
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId())
+        {
+            case R.id.parcels_to_deliver:
+            {
+                getSupportFragmentManager().beginTransaction().replace(R.id.frag_cont_courier, new ParcelsDelivery()).commit();
+                navigationView.setCheckedItem(R.id.parcels_to_deliver);
+                break;
+            }
+            case R.id.get_parcels:
+            {
+                getSupportFragmentManager().beginTransaction().replace(R.id.frag_cont_courier, new GetNewParcels()).commit();
+                navigationView.setCheckedItem(R.id.get_parcels);
+                break;
+            }
+            case R.id.parcels_to_stock:
+            {
+                getSupportFragmentManager().beginTransaction().replace(R.id.frag_cont_courier, new AddParcelsStock()).commit();
+                navigationView.setCheckedItem(R.id.parcels_to_stock);
+                break;
+            }
+            case R.id.petrol_usage:
+            {
+                getSupportFragmentManager().beginTransaction().replace(R.id.frag_cont_courier, new PetrolUsage()).commit();
+                navigationView.setCheckedItem(R.id.petrol_usage);
+                break;
+            }
+            case R.id.courier_logout:
+            {
+                auth.signOut();
+                Intent intent = new Intent(CourierMenu.this, SignIn.class);
+                startActivity(intent);
+                finish();
+                break;
+            }
+            default:
+            {
+                Toast.makeText(CourierMenu.this, "Error! Something went wrong!", Toast.LENGTH_LONG).show();
+                break;
+            }
+        }
+
+        drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 }

@@ -3,13 +3,17 @@ package com.example.shippingit;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class EmployerMenu extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -17,6 +21,7 @@ public class EmployerMenu extends AppCompatActivity  implements NavigationView.O
     private NavigationView navigationView;
     private ActionBarDrawerToggle toggle;
     private ImageView menu_button;
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +36,13 @@ public class EmployerMenu extends AppCompatActivity  implements NavigationView.O
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
+        auth = FirebaseAuth.getInstance();
+
+        if(savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.frag_cont_emp, new CtoBChart()).commit();
+            navigationView.setCheckedItem(R.id.costs_budget);
+        }
+
         menu_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,6 +53,54 @@ public class EmployerMenu extends AppCompatActivity  implements NavigationView.O
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId())
+        {
+            case R.id.costs_budget:
+            {
+                getSupportFragmentManager().beginTransaction().replace(R.id.frag_cont_emp, new CtoBChart()).commit();
+                navigationView.setCheckedItem(R.id.costs_budget);
+                break;
+            }
+            case R.id.daily_stats:
+            {
+                getSupportFragmentManager().beginTransaction().replace(R.id.frag_cont_emp, new DStatsChart()).commit();
+                navigationView.setCheckedItem(R.id.daily_stats);
+                break;
+            }
+            case R.id.personal_data:
+            {
+                getSupportFragmentManager().beginTransaction().replace(R.id.frag_cont_emp, new PersonalData()).commit();
+                navigationView.setCheckedItem(R.id.personal_data);
+                break;
+            }
+            case R.id.package_data:
+            {
+                getSupportFragmentManager().beginTransaction().replace(R.id.frag_cont_emp, new StoAParcelChart()).commit();
+                navigationView.setCheckedItem(R.id.package_data);
+                break;
+            }
+            case R.id.add_user:
+            {
+                getSupportFragmentManager().beginTransaction().replace(R.id.frag_cont_emp, new AddWorker()).commit();
+                navigationView.setCheckedItem(R.id.add_user);
+                break;
+            }
+            case R.id.emp_logout:
+            {
+                auth.signOut();
+                Intent intent = new Intent(EmployerMenu.this, SignIn.class);
+                startActivity(intent);
+                finish();
+                break;
+            }
+            default:
+            {
+                Toast.makeText(EmployerMenu.this, "Error! Something went wrong!", Toast.LENGTH_LONG).show();
+                break;
+            }
+        }
+
+        drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 }
