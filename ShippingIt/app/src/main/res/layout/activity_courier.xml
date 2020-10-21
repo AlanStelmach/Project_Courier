@@ -8,7 +8,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_main"
-    tools:openDrawer="start"
+    tools:openDrawer="end"
     tools:context=".CourierMenu">
 
     <LinearLayout
@@ -17,13 +17,37 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-        <ImageView
-            android:id="@+id/courier_menu"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:background="@drawable/shape"
-            android:padding="5dp"
-            app:srcCompat="@mipmap/menu_brown" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/courier_menu"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:background="@drawable/shape"
+                android:padding="5dp"
+                app:srcCompat="@mipmap/menu_brown" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="10dp">
+
+                <TextView
+                    android:id="@+id/header_name_course"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text=""
+                    android:background="@drawable/shape"
+                    android:textColor="@color/black"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="18sp"/>
+            </RelativeLayout>
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -41,11 +65,11 @@
     </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigation_courier"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:id="@+id/navigation_courier"
         app:headerLayout="@layout/header"
-        app:menu="@menu/courier_menu"/>
+        app:menu="@menu/courier_menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -11,6 +11,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,12 +23,14 @@ public class  StockWorkerMenu extends AppCompatActivity implements NavigationVie
     private ActionBarDrawerToggle toggle;
     private ImageView menu_button;
     private FirebaseAuth auth;
+    private TextView header_stworker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stock_worker);
 
+        header_stworker = (TextView) findViewById(R.id.header_name_stworker);
         menu_button = (ImageView) findViewById(R.id.stworker_menu);
         drawerLayout = (DrawerLayout) findViewById(R.id.stworker_drawer);
         navigationView = (NavigationView) findViewById(R.id.navigation_stworker);
@@ -39,6 +42,7 @@ public class  StockWorkerMenu extends AppCompatActivity implements NavigationVie
         auth = FirebaseAuth.getInstance();
 
         if(savedInstanceState == null) {
+            header_stworker.setText(R.string.parcels);
             getSupportFragmentManager().beginTransaction().replace(R.id.frag_cont_stworker, new ParcelsStock()).commit();
             navigationView.setCheckedItem(R.id.warehouse_parcel);
         }
@@ -57,12 +61,14 @@ public class  StockWorkerMenu extends AppCompatActivity implements NavigationVie
         {
             case R.id.warehouse_parcel:
             {
+                header_stworker.setText(R.string.parcels);
                 getSupportFragmentManager().beginTransaction().replace(R.id.frag_cont_stworker, new ParcelsStock()).commit();
                 navigationView.setCheckedItem(R.id.warehouse_parcel);
                 break;
             }
             case R.id.parcel_queue:
             {
+                header_stworker.setText(R.string.parcel_queue);
                 getSupportFragmentManager().beginTransaction().replace(R.id.frag_cont_stworker, new ParcelsQueue()).commit();
                 navigationView.setCheckedItem(R.id.parcel_queue);
                 break;
