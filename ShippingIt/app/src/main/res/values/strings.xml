@@ -2,8 +2,8 @@
     <string name="app_name">Shipping It</string>
     <string name="sign_in">Sign In</string>
     <string name="signing_in">Signing In</string>
-    <string name="email">E-mail</string>
-    <string name="password">Password</string>
+    <string name="email">E-mail:</string>
+    <string name="password">Password:</string>
     <string name="emailhint">Enter your e-mail here...</string>
     <string name="passwordhint">Enter your password here...</string>
     <string name="costs_to_budget">Costs to Budget Chart</string>
@@ -20,6 +20,27 @@
     <string name="petrol">Usage of Petrol</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="name">Name:</string>
+    <string name="surname">Surname:</string>
+    <string name="age">Age:</string>
+    <string name="sex">Sex:</string>
+    <string name="pnumber">Phone number:</string>
+    <string name="workplace">Workplace:</string>
+    <string name="enter_name">Enter name here...</string>
+    <string name="enter_surname">Enter surname here...</string>
+    <string name="enter_age">Enter age here...</string>
+    <string name="enter_pnumber">Enter phone number here...</string>
+    <string name="enter_email">Enter e-mail here...</string>
+    <string name="enter_sex">Sex</string>
+    <string name="enter_workplace">Workplace</string>
+    <string-array name="sexes">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+    <string-array name="workplaces">
+        <item>Stock Worker</item>
+        <item>Courier</item>
+    </string-array>
+    <string name="pl_num">+48</string>
+    <string name="add">Add</string>
 </resources>

@@ -2,11 +2,13 @@ package com.example.shippingit;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -50,7 +52,7 @@ public class SignIn extends AppCompatActivity {
             public void onClick(View v) {
                 String textemail = et_email.getText().toString();
                 String textpassword = et_password.getText().toString();
-
+                hideKeyboard(SignIn.this);
                 if(textemail.isEmpty())
                 {
                     Toast.makeText(SignIn.this, "Please enter your e-mail!", Toast.LENGTH_LONG).show();
@@ -69,16 +71,26 @@ public class SignIn extends AppCompatActivity {
         });
     }
 
+    private static void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        View view = activity.getCurrentFocus();
+        if (view == null) {
+            view = new View(activity);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        view.clearFocus();
+    }
+
     private void loggingin(String email, String password)
     {
         login_progressBar.setVisibility(View.VISIBLE);
         auth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                uid = user.getUid();
                 if(task.isSuccessful())
                 {
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    uid = user.getUid();
                     login_progressBar.setVisibility(View.GONE);
                     if(user.isEmailVerified())
                     {
@@ -164,12 +176,17 @@ public class SignIn extends AppCompatActivity {
                             }
                         });
                         builder.show();
+                        et_email.setText("");
+                        et_password.setText("");
                     }
                 }
                 else
                 {
                     login_progressBar.setVisibility(View.GONE);
                     Toast.makeText(SignIn.this, "Error! Wrong e-mail or password!", Toast.LENGTH_LONG).show();
+                    et_email.setText("");
+                    et_password.setText("");
+                    et_email.requestFocus();
                 }
             }
         });
