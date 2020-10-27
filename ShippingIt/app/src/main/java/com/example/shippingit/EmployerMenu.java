@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -13,8 +15,18 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 public class EmployerMenu extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -24,6 +36,12 @@ public class EmployerMenu extends AppCompatActivity  implements NavigationView.O
     private ImageView menu_button;
     private FirebaseAuth auth;
     private TextView header_emp;
+    private ImageView user_picture;
+    private View header;
+    private String uid;
+    private String return_id = "1";
+    private String var = "com.example.shippingit";
+    private String data = "userid";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +56,29 @@ public class EmployerMenu extends AppCompatActivity  implements NavigationView.O
         toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+        header = navigationView.getHeaderView(0);
+        user_picture = (ImageView) header.findViewById(R.id.user_picture);
 
         auth = FirebaseAuth.getInstance();
+        uid = auth.getCurrentUser().getUid();
 
         if(savedInstanceState == null) {
             header_emp.setText(R.string.costs_to_budget);
             getSupportFragmentManager().beginTransaction().replace(R.id.frag_cont_emp, new CtoBChart()).commit();
             navigationView.setCheckedItem(R.id.costs_budget);
         }
+
+        user_picture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EmployerMenu.this, UserData.class);
+                intent.putExtra(var, return_id);
+                intent.putExtra(data, uid);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                drawerLayout.closeDrawer(GravityCompat.START);
+            }
+        });
 
         menu_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,5 +144,38 @@ public class EmployerMenu extends AppCompatActivity  implements NavigationView.O
 
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String name = dataSnapshot.child("Users").child(uid).child("Name").getValue(String.class);
+                String surname = dataSnapshot.child("Users").child(uid).child("Surname").getValue(String.class);
+                header = navigationView.getHeaderView(0);
+                TextView name_surname = (TextView) header.findViewById(R.id.full_name);
+                name_surname.setText(name + " " + surname);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference reference = storage.getReference().child("Images").child(uid).child("1.jpg");
+        reference.getBytes(1024 * 1024).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                ImageView profile = (ImageView) header.findViewById(R.id.user_picture);
+                profile.setImageBitmap(bitmap);
+            }
+        });
     }
 }

@@ -15,12 +15,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UserData"></activity>
-        <activity android:name=".CourierMenu" />
-        <activity android:name=".StockWorkerMenu" />
-        <activity android:name=".EmployerMenu" />
-        <activity android:name=".SignIn" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".UserData"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".CourierMenu"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".StockWorkerMenu"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".EmployerMenu"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".SignIn"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

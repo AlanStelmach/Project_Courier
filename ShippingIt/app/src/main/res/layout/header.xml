@@ -15,7 +15,7 @@
         android:layout_height="match_parent">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/image_set"
+            android:id="@+id/user_picture"
             android:layout_width="140dp"
             android:layout_height="140dp"
             android:layout_alignParentStart="true"
@@ -41,14 +41,13 @@
             android:layout_marginBottom="15dp"
             android:background="@drawable/tv_shape"
             android:padding="1dp"
-            android:text="Full Name"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image_set" />
+            app:layout_constraintTop_toBottomOf="@+id/user_picture" />
 
     </RelativeLayout>
 </LinearLayout>
