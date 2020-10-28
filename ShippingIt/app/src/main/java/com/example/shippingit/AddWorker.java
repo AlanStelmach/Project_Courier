@@ -1,11 +1,8 @@
 package com.example.shippingit;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -24,14 +21,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
 import java.util.Random;
 
 public class AddWorker extends Fragment implements AdapterView.OnItemSelectedListener {
@@ -208,13 +202,13 @@ public class AddWorker extends Fragment implements AdapterView.OnItemSelectedLis
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
-                            auth.sendPasswordResetEmail(Semail);
                             User user = new User(Sname, Ssurname, Semail, Spnumber, Sid, Ssex, Sworkplace, Syob);
                             FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful())
                                     {
+                                        auth.sendPasswordResetEmail(Semail);
                                         progressDialog.dismiss();
                                         name.setText("");
                                         surname.setText("");
@@ -225,12 +219,16 @@ public class AddWorker extends Fragment implements AdapterView.OnItemSelectedLis
                                         workplace_spinner.setSelection(0);
                                         Toast.makeText(getActivity(),"Success!",Toast.LENGTH_LONG).show();
                                     }
+                                    else
+                                    {
+                                        progressDialog.dismiss();
+                                        Toast.makeText(getActivity(),"Error!", Toast.LENGTH_LONG).show();
+                                    }
                                 }
                             });
                         }
                         else {
                             progressDialog.dismiss();
-                            Toast.makeText(getActivity(),"Error!", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
