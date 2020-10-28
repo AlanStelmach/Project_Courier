@@ -67,21 +67,19 @@ public class UserData extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        // FIX DATA READING FROM FIREBASE
-
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String name_data = dataSnapshot.child("Users").child(id).child("Name").getValue(String.class);
-                String surname_data = dataSnapshot.child("Users").child(id).child("Surname").getValue(String.class);
+                String name_data = dataSnapshot.child("Users").child(id).child("name").getValue(String.class);
+                String surname_data = dataSnapshot.child("Users").child(id).child("surname").getValue(String.class);
                 String fullname_string = name_data + " " + surname_data;
-                String id_data = dataSnapshot.child("Users").child(id).child("Id").getValue(String.class);
-                String workplace_data = dataSnapshot.child("Users").child(id).child("Workplace").getValue(String.class);
-                String yob_data = dataSnapshot.child("Users").child(id).child("YOB").getValue(String.class);
-                String sex_data = dataSnapshot.child("Users").child(id).child("Sex").getValue(String.class);
-                String email_data = dataSnapshot.child("Users").child(id).child("Email").getValue(String.class);
-                String pnumber_data = dataSnapshot.child("Users").child(id).child("PNumber").getValue(String.class);
+                String id_data = dataSnapshot.child("Users").child(id).child("id").getValue(String.class);
+                String workplace_data = dataSnapshot.child("Users").child(id).child("workplace").getValue(String.class);
+                String yob_data = dataSnapshot.child("Users").child(id).child("yob").getValue(String.class);
+                String sex_data = dataSnapshot.child("Users").child(id).child("sex").getValue(String.class);
+                String email_data = dataSnapshot.child("Users").child(id).child("email").getValue(String.class);
+                String pnumber_data = dataSnapshot.child("Users").child(id).child("pnumber").getValue(String.class);
                 fullname.setText(fullname_string);
                 workerid.setText(id_data);
                 workplace.setText(workplace_data);

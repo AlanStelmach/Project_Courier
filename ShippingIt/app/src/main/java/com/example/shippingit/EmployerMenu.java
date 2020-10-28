@@ -148,14 +148,12 @@ public class EmployerMenu extends AppCompatActivity  implements NavigationView.O
     protected void onStart() {
         super.onStart();
 
-        // FIX DATA READING FROM FIREBASE
-
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String name = dataSnapshot.child("Users").child(uid).child("Name").getValue(String.class);
-                String surname = dataSnapshot.child("Users").child(uid).child("Surname").getValue(String.class);
+                String name = dataSnapshot.child("Users").child(uid).child("name").getValue(String.class);
+                String surname = dataSnapshot.child("Users").child(uid).child("surname").getValue(String.class);
                 header = navigationView.getHeaderView(0);
                 TextView name_surname = (TextView) header.findViewById(R.id.full_name);
                 name_surname.setText(name + " " + surname);
