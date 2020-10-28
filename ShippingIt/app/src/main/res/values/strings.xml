@@ -22,22 +22,24 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="name">Name:</string>
     <string name="surname">Surname:</string>
-    <string name="age">Age:</string>
-    <string name="sex">Sex:</string>
+    <string name="age">Year of birth:</string>
+    <string name="sex">Gender:</string>
     <string name="pnumber">Phone number:</string>
     <string name="workplace">Workplace:</string>
     <string name="enter_name">Enter name here...</string>
     <string name="enter_surname">Enter surname here...</string>
-    <string name="enter_age">Enter age here...</string>
+    <string name="enter_age">Enter year of birth here...</string>
     <string name="enter_pnumber">Enter phone number here...</string>
     <string name="enter_email">Enter e-mail here...</string>
-    <string name="enter_sex">Sex</string>
+    <string name="enter_sex">Gender</string>
     <string name="enter_workplace">Workplace</string>
     <string-array name="sexes">
+        <item>None</item>
         <item>Male</item>
         <item>Female</item>
     </string-array>
     <string-array name="workplaces">
+        <item>None</item>
         <item>Stock Worker</item>
         <item>Courier</item>
     </string-array>

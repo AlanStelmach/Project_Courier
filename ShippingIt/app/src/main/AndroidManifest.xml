@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".UserData"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity android:name=".CourierMenu"
             android:screenOrientation="portrait"/>
         <activity android:name=".StockWorkerMenu"

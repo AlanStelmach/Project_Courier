@@ -58,17 +58,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
 
-        <TextView
-            android:id="@+id/tv_fullname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView13"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="30dp"
-            android:textColor="@color/black" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_fullname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView13"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="0dp"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView13"
@@ -76,8 +93,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
             android:text="@string/full_name"
             android:textColor="@color/brown"
             android:textStyle="bold" />
@@ -88,23 +105,25 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_fullname"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="0dp"
             android:layout_marginTop="5dp"
             android:text="@string/id"
             android:textColor="@color/brown"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tv_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView14"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="30dp"
-            android:textColor="@color/black" />
+            <TextView
+                android:id="@+id/tv_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView14"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="0dp"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView16"
@@ -112,23 +131,25 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_id"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="0dp"
             android:layout_marginTop="5dp"
             android:text="@string/workplace"
             android:textColor="@color/brown"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tv_workplace"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView16"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="30dp"
-            android:textColor="@color/black" />
+            <TextView
+                android:id="@+id/tv_workplace"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView16"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="0dp"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView18"
@@ -136,23 +157,25 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_workplace"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="0dp"
             android:layout_marginTop="5dp"
             android:text="@string/age"
             android:textColor="@color/brown"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tv_age"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView18"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="30dp"
-            android:textColor="@color/black" />
+            <TextView
+                android:id="@+id/tv_age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView18"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="0dp"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView20"
@@ -160,23 +183,25 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_age"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="0dp"
             android:layout_marginTop="5dp"
             android:text="@string/sex"
             android:textColor="@color/brown"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tv_sex"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView20"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="30dp"
-            android:textColor="@color/black" />
+            <TextView
+                android:id="@+id/tv_sex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView20"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="0dp"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView22"
@@ -184,23 +209,25 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_sex"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="0dp"
             android:layout_marginTop="5dp"
             android:text="@string/email"
             android:textColor="@color/brown"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tv_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView22"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="30dp"
-            android:textColor="@color/black" />
+            <TextView
+                android:id="@+id/tv_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView22"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="0dp"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView24"
@@ -208,23 +235,28 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_email"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="30dp"
+            android:layout_marginStart="0dp"
             android:layout_marginTop="5dp"
             android:text="@string/pnumber"
             android:textColor="@color/brown"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tv_pnumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView24"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="30dp"
-            android:textColor="@color/black" />
+            <TextView
+                android:id="@+id/tv_pnumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView24"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="0dp"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+        </LinearLayout>
+        </ScrollView>
     </RelativeLayout>
 
 
