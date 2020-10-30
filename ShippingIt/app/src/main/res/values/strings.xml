@@ -54,5 +54,20 @@
     <string name="deliver_parcel">Deliver To Stock</string>
     <string name="add_parcel">Add Parcel</string>
     <string name="enter_petrol">Enter the cost of refueling here...</string>
+    <string name="petrol_cost">Petrol Cost:</string>
     <string name="add_cost">Add Cost</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="profits">Profits:</string>
+    <string name="enter_profit">Enter profit here...</string>
+    <string name="costs">Costs:</string>
+    <string name="enter_cost">Enter cost here...</string>
+    <string name="addressee">Addressee:</string>
+    <string name="recipient">Recipient:</string>
+    <string name="pickupaddress">Pickup Address:</string>
+    <string name="deliveryaddress">Delivery Address:</string>
+    <string name="enter_addressee">Enter addressee full name here...</string>
+    <string name="enter_recipient">Enter recipient full name here...</string>
+    <string name="enter_pickup">Enter pickup address here...</string>
+    <string name="enter_delivery">Enter delivery address here...</string>
 </resources>

@@ -27,6 +27,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.Calendar;
+
 public class UserData extends AppCompatActivity {
 
     private ImageView profile_pic;
@@ -71,6 +73,8 @@ public class UserData extends AppCompatActivity {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
                 String name_data = dataSnapshot.child("Users").child(id).child("name").getValue(String.class);
                 String surname_data = dataSnapshot.child("Users").child(id).child("surname").getValue(String.class);
                 String fullname_string = name_data + " " + surname_data;
@@ -80,10 +84,13 @@ public class UserData extends AppCompatActivity {
                 String sex_data = dataSnapshot.child("Users").child(id).child("sex").getValue(String.class);
                 String email_data = dataSnapshot.child("Users").child(id).child("email").getValue(String.class);
                 String pnumber_data = dataSnapshot.child("Users").child(id).child("pnumber").getValue(String.class);
+                int YOB = Integer.parseInt(yob_data);
+                String result = String.valueOf(year-YOB);
+                String value = yob_data + " ("+result+" year old)";
                 fullname.setText(fullname_string);
                 workerid.setText(id_data);
                 workplace.setText(workplace_data);
-                age.setText(yob_data);
+                age.setText(value);
                 sex.setText(sex_data);
                 email.setText(email_data);
                 pnumber.setText(pnumber_data);

@@ -198,11 +198,16 @@ public class AddWorker extends Fragment implements AdapterView.OnItemSelectedLis
                 progressDialog.setMessage("Adding...");
                 progressDialog.show();
 
+                // -------------- TO FIX!!! -------------- Boss has to be the only one active user in session!
+
                 auth.createUserWithEmailAndPassword(Semail, Spassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
                             User user = new User(Sname, Ssurname, Semail, Spnumber, Sid, Ssex, Sworkplace, Syob);
+                            if(Sworkplace.equals("Stock Worker")) {
+                                FirebaseDatabase.getInstance().getReference("StockWorker").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                            }
                             FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {

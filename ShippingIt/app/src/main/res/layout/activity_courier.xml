@@ -36,7 +36,7 @@
                 android:paddingLeft="10dp">
 
                 <TextView
-                    android:id="@+id/header_name_course"
+                    android:id="@+id/header_name_courier"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text=""

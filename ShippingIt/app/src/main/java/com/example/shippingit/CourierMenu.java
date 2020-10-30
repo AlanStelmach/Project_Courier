@@ -15,11 +15,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -48,7 +46,7 @@ public class CourierMenu extends AppCompatActivity implements NavigationView.OnN
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_courier);
 
-        header_courier = (TextView) findViewById(R.id.header_name_course);
+        header_courier = (TextView) findViewById(R.id.header_name_courier);
         menu_button = (ImageView) findViewById(R.id.courier_menu);
         drawerLayout = (DrawerLayout) findViewById(R.id.courier_drawer);
         navigationView = (NavigationView) findViewById(R.id.navigation_courier);
