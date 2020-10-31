@@ -12,6 +12,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -33,19 +34,41 @@ public class SignIn extends AppCompatActivity {
     private String uid;
     private boolean employerid;
     private boolean stockworkerid;
+    private TextView register;
+    private TextView issue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
-        login_button = (Button) findViewById(R.id.signin_button);
-        et_email = (EditText) findViewById(R.id.email_edittext);
-        et_password = (EditText) findViewById(R.id.password_edittext);
-        login_progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        login_button = (Button) findViewById(R.id.respassword_button);
+        et_email = (EditText) findViewById(R.id.email_respassword);
+        et_password = (EditText) findViewById(R.id.password_register);
+        login_progressBar = (ProgressBar) findViewById(R.id.progressBarPass);
+        register = (TextView) findViewById(R.id.register);
+        issue = (TextView) findViewById(R.id.password_issue);
         login_progressBar.setVisibility(View.GONE);
 
         auth = FirebaseAuth.getInstance();
+
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SignIn.this, RegisterActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });
+
+        issue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SignIn.this, RestoringPassword.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });
 
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override

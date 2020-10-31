@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.shippingit">
 
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <supports-screens
         android:largeScreens="true"
         android:normalScreens="true"
@@ -15,17 +17,32 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UserData"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".CourierMenu"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".StockWorkerMenu"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".EmployerMenu"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".SignIn"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".MainActivity"
+        <activity android:name=".RestoringPassword"></activity>
+
+        <meta-data
+            android:name="com.google.android.wearable.standalone"
+            android:value="true" />
+
+        <activity
+            android:name=".RegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UserData"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CourierMenu"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".StockWorkerMenu"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".EmployerMenu"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SignIn"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

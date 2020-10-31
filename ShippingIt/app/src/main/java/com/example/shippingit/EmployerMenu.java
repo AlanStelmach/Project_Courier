@@ -57,9 +57,6 @@ public class EmployerMenu extends AppCompatActivity  implements NavigationView.O
         header = navigationView.getHeaderView(0);
         user_picture = (ImageView) header.findViewById(R.id.user_picture);
 
-        auth = FirebaseAuth.getInstance();
-        uid = auth.getCurrentUser().getUid();
-
         if(savedInstanceState == null) {
             header_emp.setText(R.string.costs_to_budget);
             getSupportFragmentManager().beginTransaction().replace(R.id.frag_cont_emp, new CtoBChart()).commit();
@@ -129,6 +126,7 @@ public class EmployerMenu extends AppCompatActivity  implements NavigationView.O
             {
                 auth.signOut();
                 Intent intent = new Intent(EmployerMenu.this, SignIn.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();
                 break;
@@ -147,6 +145,9 @@ public class EmployerMenu extends AppCompatActivity  implements NavigationView.O
     @Override
     protected void onStart() {
         super.onStart();
+
+        auth = FirebaseAuth.getInstance();
+        uid = auth.getCurrentUser().getUid();
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
         ref.addValueEventListener(new ValueEventListener() {

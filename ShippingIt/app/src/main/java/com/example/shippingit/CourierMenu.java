@@ -57,9 +57,6 @@ public class CourierMenu extends AppCompatActivity implements NavigationView.OnN
         header = navigationView.getHeaderView(0);
         user_picture = (ImageView) header.findViewById(R.id.user_picture);
 
-        auth = FirebaseAuth.getInstance();
-        uid = auth.getCurrentUser().getUid();
-
         if(savedInstanceState == null) {
             header_courier.setText(R.string.parcels_delivery);
             getSupportFragmentManager().beginTransaction().replace(R.id.frag_cont_courier, new ParcelsDelivery()).commit();
@@ -122,6 +119,7 @@ public class CourierMenu extends AppCompatActivity implements NavigationView.OnN
             {
                 auth.signOut();
                 Intent intent = new Intent(CourierMenu.this, SignIn.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();
                 break;
@@ -140,6 +138,9 @@ public class CourierMenu extends AppCompatActivity implements NavigationView.OnN
     @Override
     protected void onStart() {
         super.onStart();
+
+        auth = FirebaseAuth.getInstance();
+        uid = auth.getCurrentUser().getUid();
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
         ref.addValueEventListener(new ValueEventListener() {

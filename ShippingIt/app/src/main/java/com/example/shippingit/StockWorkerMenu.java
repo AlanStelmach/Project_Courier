@@ -15,11 +15,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -58,9 +56,6 @@ public class  StockWorkerMenu extends AppCompatActivity implements NavigationVie
         toggle.syncState();
         header = navigationView.getHeaderView(0);
         user_picture = (ImageView) header.findViewById(R.id.user_picture);
-
-        auth = FirebaseAuth.getInstance();
-        uid = auth.getCurrentUser().getUid();
 
         if(savedInstanceState == null) {
             header_stworker.setText(R.string.parcels);
@@ -110,6 +105,7 @@ public class  StockWorkerMenu extends AppCompatActivity implements NavigationVie
             {
                 auth.signOut();
                 Intent intent = new Intent(StockWorkerMenu.this, SignIn.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();
                 break;
@@ -128,6 +124,9 @@ public class  StockWorkerMenu extends AppCompatActivity implements NavigationVie
     @Override
     protected void onStart() {
         super.onStart();
+
+        auth = FirebaseAuth.getInstance();
+        uid = auth.getCurrentUser().getUid();
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
         ref.addValueEventListener(new ValueEventListener() {

@@ -3,6 +3,7 @@ package com.example.shippingit;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -19,22 +20,20 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import java.util.Random;
+
+import java.util.Calendar;
 
 public class AddWorker extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private Spinner sex_spinner, workplace_spinner;
     private Button add_user;
     private EditText name, surname, email, yob, pnumber;
-    private FirebaseAuth auth;
-    private int count;
+    private int count=1;
 
     public AddWorker() {
     }
@@ -61,13 +60,13 @@ public class AddWorker extends Fragment implements AdapterView.OnItemSelectedLis
         pnumber = (EditText) view.findViewById(R.id.et_pnumber);
         add_user = (Button) view.findViewById(R.id.add_user);
 
-        auth = FirebaseAuth.getInstance();
-
         add_user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 hideKeyboard(getContext(), view);
 
+                Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
                 String name_tx = name.getText().toString();
                 String surname_tx = surname.getText().toString();
                 String email_tx = email.getText().toString();
@@ -101,7 +100,7 @@ public class AddWorker extends Fragment implements AdapterView.OnItemSelectedLis
                     Toast.makeText(getActivity(),"Please enter year of birth!", Toast.LENGTH_LONG).show();
                     yob.requestFocus();
                 }
-                else if(Integer.parseInt(yob_tx) < 1960)
+                else if(Integer.parseInt(yob_tx) < year-60 || Integer.parseInt(yob_tx) > year-18)
                 {
                     Toast.makeText(getActivity(),"Year of birth form is incorrect!", Toast.LENGTH_LONG).show();
                     yob.requestFocus();
@@ -137,6 +136,35 @@ public class AddWorker extends Fragment implements AdapterView.OnItemSelectedLis
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    int temp = Integer.parseInt(dataSnapshot.child("id").getValue(String.class));
+                    if (temp>count) {
+                        count = temp;
+                    } else if(temp<count){
+                        continue;
+                    }
+                    else
+                    {
+                        count = 1;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Object item = parent.getItemAtPosition(position);
     }
@@ -153,96 +181,42 @@ public class AddWorker extends Fragment implements AdapterView.OnItemSelectedLis
     }
 
     private void registerUser() {
+        final String Sname = name.getText().toString();
+        final String Ssurname = surname.getText().toString();
+        final String Semail = email.getText().toString();
+        final String Syob = yob.getText().toString();
+        final String Spnumber = pnumber.getText().toString();
+        final String Ssex = sex_spinner.getSelectedItem().toString();
+        final String Sworkplace = workplace_spinner.getSelectedItem().toString();
+        final String Sid = String.valueOf(count+1);
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users");
-        reference.addValueEventListener(new ValueEventListener() {
+        final ProgressDialog progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Adding...");
+        progressDialog.show();
+
+        User user = new User(Sname, Ssurname, Semail, Spnumber, Sid, Ssex, Sworkplace, Syob);
+        FirebaseDatabase.getInstance().getReference("Users").push().setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists())
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful())
                 {
-                    count = (int) snapshot.getChildrenCount();
+                    progressDialog.dismiss();
+                    name.setText("");
+                    surname.setText("");
+                    email.setText("");
+                    pnumber.setText("");
+                    yob.setText("");
+                    sex_spinner.setSelection(0);
+                    workplace_spinner.setSelection(0);
+                    Toast.makeText(getActivity(),"Success!",Toast.LENGTH_LONG).show();
                 }
                 else
                 {
-                    count = 0;
+                    progressDialog.dismiss();
+                    Toast.makeText(getActivity(),"Error!", Toast.LENGTH_LONG).show();
                 }
-                final String Sname = name.getText().toString();
-                final String Ssurname = surname.getText().toString();
-                final String Semail = email.getText().toString();
-                final String Syob = yob.getText().toString();
-                final String Spnumber = pnumber.getText().toString();
-                final String Ssex = sex_spinner.getSelectedItem().toString();
-                final String Sworkplace = workplace_spinner.getSelectedItem().toString();
-                final String Sid = String.valueOf(count+1);
-                Random random = new Random();
-                String Spassword = "";
-                char [] Cletters = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
-                char [] numbers = {'0','1','2','3','4','5','6','7','8','9'};
-                char [] Schars = {'!','@','#','$','%','&'};
-                char f_name = Sname.charAt(0);
-                char s_name = Ssurname.charAt(0);
-                Spassword = f_name+""+s_name;
-                for(int i=0; i<3; i++)
-                {
-                    int rand = random.nextInt(numbers.length);
-                    Spassword += numbers[rand];
-                }
-                Spassword += Cletters[random.nextInt(Cletters.length)];
-                for(int i=0; i<3; i++)
-                {
-                    int rand = random.nextInt(Schars.length);
-                    Spassword += Schars[rand];
-                }
-
-                final ProgressDialog progressDialog = new ProgressDialog(getActivity());
-                progressDialog.setMessage("Adding...");
-                progressDialog.show();
-
-                // -------------- TO FIX!!! -------------- Boss has to be the only one active user in session!
-
-                auth.createUserWithEmailAndPassword(Semail, Spassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()) {
-                            User user = new User(Sname, Ssurname, Semail, Spnumber, Sid, Ssex, Sworkplace, Syob);
-                            if(Sworkplace.equals("Stock Worker")) {
-                                FirebaseDatabase.getInstance().getReference("StockWorker").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                            }
-                            FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if(task.isSuccessful())
-                                    {
-                                        auth.sendPasswordResetEmail(Semail);
-                                        progressDialog.dismiss();
-                                        name.setText("");
-                                        surname.setText("");
-                                        email.setText("");
-                                        pnumber.setText("");
-                                        yob.setText("");
-                                        sex_spinner.setSelection(0);
-                                        workplace_spinner.setSelection(0);
-                                        Toast.makeText(getActivity(),"Success!",Toast.LENGTH_LONG).show();
-                                    }
-                                    else
-                                    {
-                                        progressDialog.dismiss();
-                                        Toast.makeText(getActivity(),"Error!", Toast.LENGTH_LONG).show();
-                                    }
-                                }
-                            });
-                        }
-                        else {
-                            progressDialog.dismiss();
-                        }
-                    }
-                });
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
+
     }
 }

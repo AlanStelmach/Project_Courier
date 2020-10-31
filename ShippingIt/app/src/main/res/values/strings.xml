@@ -56,8 +56,6 @@
     <string name="enter_petrol">Enter the cost of refueling here...</string>
     <string name="petrol_cost">Petrol Cost:</string>
     <string name="add_cost">Add Cost</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="profits">Profits:</string>
     <string name="enter_profit">Enter profit here...</string>
     <string name="costs">Costs:</string>
@@ -70,4 +68,10 @@
     <string name="enter_recipient">Enter recipient full name here...</string>
     <string name="enter_pickup">Enter pickup address here...</string>
     <string name="enter_delivery">Enter delivery address here...</string>
+    <string name="register"><u>Register Here!</u></string>
+    <string name="registration">Registration</string>
+    <string name="register_button">Register</string>
+    <string name="restoringpassword">Restoring Password</string>
+    <string name="respassword"><u>Sign In Issue?</u></string>
+    <string name="send">Send</string>
 </resources>
