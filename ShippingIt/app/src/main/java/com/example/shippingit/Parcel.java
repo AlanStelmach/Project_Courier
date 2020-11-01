@@ -12,11 +12,11 @@ public class Parcel {
 
     }
 
-    public Parcel(String addressee, String recipient, String deliveryaddress, String pickupaddress, String day) {
+    public Parcel(String addressee, String recipient, String pickupaddress, String deliveryaddress, String day) {
         Addressee = addressee;
         Recipient = recipient;
-        Deliveryaddress = deliveryaddress;
         Pickupaddress = pickupaddress;
+        Deliveryaddress = deliveryaddress;
         Day = day;
     }
 
