@@ -6,9 +6,6 @@
     tools:context=".AddParcelsStock"
     android:padding="10dp">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -46,26 +43,18 @@
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:padding="10dp"/>
-
         </RelativeLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="10dp">
+            android:paddingTop="10dp"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/noData_APStock"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="100dp"
-                android:layout_marginEnd="50dp"
-                android:layout_marginBottom="100dp"
                 android:gravity="center"
                 android:text="@string/no_data"
                 android:textColor="@color/black"
@@ -75,14 +64,7 @@
             <ListView
                 android:id="@+id/listView_APStock"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="0dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginEnd="0dp" />
-        </RelativeLayout>
+                android:layout_height="match_parent" />
+        </LinearLayout>
     </LinearLayout>
-    </ScrollView>
 </FrameLayout>

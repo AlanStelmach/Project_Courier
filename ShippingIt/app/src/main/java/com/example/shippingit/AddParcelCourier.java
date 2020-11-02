@@ -79,9 +79,9 @@ public class AddParcelCourier extends Fragment {
                     daddress_tx += address;
                     Calendar calendar = Calendar.getInstance();
                     int day = calendar.get(Calendar.DAY_OF_WEEK)-1; // -1, if day - 1 == 0 --> day = 7
-                    if(day==0)
+                    if(day == 0)
                     {
-                        day=7;
+                        day = 7;
                     }
                     uid = auth.getCurrentUser().getUid();
                     Parcel parcel = new Parcel(addressee_tx, recipient_tx, paddress_tx, daddress_tx, String.valueOf(day));

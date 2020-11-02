@@ -41,4 +41,12 @@ public class CtoBChart extends Fragment {
 
         return view;
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        TextView header_emp = (TextView) getActivity().findViewById(R.id.header_name_emp);
+        header_emp.setText(R.string.costs_to_budget);
+    }
 }

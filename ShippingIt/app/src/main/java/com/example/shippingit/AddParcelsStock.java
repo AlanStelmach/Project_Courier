@@ -1,18 +1,17 @@
 package com.example.shippingit;
 
-import android.content.Context;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -21,6 +20,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 
 public class AddParcelsStock extends Fragment {
 
@@ -31,10 +32,10 @@ public class AddParcelsStock extends Fragment {
     private FirebaseAuth auth;
     private String uid;
     private ArrayList<Parcel> arrayList = new ArrayList<>();
-    private String [] field_1;
-    private String [] field_2;
-    private String [] field_3;
-    private String [] field_4;
+    private ArrayList<String> item_id = new ArrayList<>();
+    private String unique_item_id = "";
+    private int item_position;
+    private String added_count;
 
     public AddParcelsStock() {
     }
@@ -49,11 +50,42 @@ public class AddParcelsStock extends Fragment {
         no_data = (TextView) view.findViewById(R.id.noData_APStock);
         listView = (ListView) view.findViewById(R.id.listView_APStock);
         no_data.setVisibility(View.GONE);
+        onStart();
 
         deliver_to_stock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (unique_item_id.isEmpty())
+                {
+                    Toast.makeText(getActivity(), "Please choose the parcel which will be delivered to the warehouse!", Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    Calendar calendar = Calendar.getInstance();
+                    int day = calendar.get(Calendar.DAY_OF_WEEK)-1;
+                    if(day == 0)
+                    {
+                        day = 7;
+                    }
+                    Parcel parcel = new Parcel(arrayList.get(item_position).getAddressee(), arrayList.get(item_position).getRecipient(), arrayList.get(item_position).getPickupaddress(), arrayList.get(item_position).getDeliveryaddress(), String.valueOf(day));
+                    FirebaseDatabase.getInstance().getReference("ParcelsAtQueue").push().setValue(parcel);
+                    int x;
+                    if (added_count == null)
+                    {
+                        x = 0;
+                    }
+                    else
+                    {
+                        x = Integer.parseInt(added_count);
+                    }
+                    int result = x + 1;
+                    final HashMap<String, Object> map = new HashMap<>();
+                    map.put("added", String.valueOf(result));
+                    FirebaseDatabase.getInstance().getReference("PersonalStats").child(uid).updateChildren(map);
+                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("ParcelsToStock").child(uid);
+                    ref.child(unique_item_id).removeValue();
+                    Toast.makeText(getActivity(), "Success!", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -71,6 +103,25 @@ public class AddParcelsStock extends Fragment {
             }
         });
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                for(int i=0; i < listView.getChildCount(); i++)
+                {
+                    if(position == i)
+                    {
+                        listView.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.gold));
+                        unique_item_id = item_id.get(position);
+                        item_position = position;
+                    }
+                    else
+                    {
+                        listView.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.white));
+                    }
+                }
+            }
+        });
+
         return view;
     }
 
@@ -78,8 +129,8 @@ public class AddParcelsStock extends Fragment {
     public void onStart() {
         super.onStart();
 
-        // Have to fix clearing listView to not double items or to change String array to ArrayList and use method clear(); , It would probably solve it
-        // Also it will be a good move to make CustomArrayAdapter as a global class
+        TextView header_emp = (TextView) getActivity().findViewById(R.id.header_name_courier);
+        header_emp.setText(R.string.parcels_stock);
 
         auth = FirebaseAuth.getInstance();
         uid = auth.getCurrentUser().getUid();
@@ -87,6 +138,8 @@ public class AddParcelsStock extends Fragment {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                arrayList.clear();
+                item_id.clear();
                 for(DataSnapshot dataSnapshot : snapshot.getChildren())
                 {
                     String addressee = dataSnapshot.child("addressee").getValue(String.class);
@@ -94,25 +147,16 @@ public class AddParcelsStock extends Fragment {
                     String paddress = dataSnapshot.child("pickupaddress").getValue(String.class);
                     String daddress = dataSnapshot.child("deliveryaddress").getValue(String.class);
                     String day = dataSnapshot.child("day").getValue(String.class);
+                    String id = dataSnapshot.getKey();
+                    item_id.add(id);
                     arrayList.add(new Parcel(addressee, recipient, paddress, daddress, day));
                 }
                 if(arrayList.size() == 0)
                 {
                     no_data.setVisibility(View.VISIBLE);
                 }
-                field_1 = new String[arrayList.size()];
-                field_2 = new String[arrayList.size()];
-                field_3 = new String[arrayList.size()];
-                field_4 = new String[arrayList.size()];
-                for(int i = 0; i < arrayList.size(); i++)
-                {
-                    field_1[i] = arrayList.get(i).getAddressee();
-                    field_2[i] = arrayList.get(i).getRecipient();
-                    field_3[i] = arrayList.get(i).getPickupaddress();
-                    field_4[i] = arrayList.get(i).getDeliveryaddress();
-                }
-                CustomArrayaAapter customArrayaAapter = new CustomArrayaAapter(getContext(), field_1, field_2, field_3, field_4);
-                listView.setAdapter(customArrayaAapter);
+                CustomArrayAdapter customArrayAdapter = new CustomArrayAdapter(getContext(), arrayList);
+                listView.setAdapter(customArrayAdapter);
             }
 
             @Override
@@ -120,42 +164,16 @@ public class AddParcelsStock extends Fragment {
 
             }
         });
-    }
+        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("PersonalStats").child(uid);
+        ref2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                added_count = snapshot.child("added").getValue(String.class);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-    class CustomArrayaAapter extends ArrayAdapter<String>
-    {
-        Context context;
-        String []field1;
-        String []field2;
-        String []field3;
-        String []field4;
-
-        CustomArrayaAapter(Context context, String []field1, String []field2, String []field3, String [] field4)
-        {
-            super(context, R.layout.list_item, R.id.field1_addressee, field1);
-            this.context = context;
-            this.field1 = field1;
-            this.field2 = field2;
-            this.field3 = field3;
-            this.field4 = field4;
-        }
-
-        @NonNull
-        @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            LayoutInflater layoutInflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View item = layoutInflater.inflate(R.layout.list_item, parent, false);
-            TextView field1_data = (TextView) item.findViewById(R.id.field1_addressee);
-            TextView field2_data = (TextView) item.findViewById(R.id.field2_recipient);
-            TextView field3_data = (TextView) item.findViewById(R.id.field3_paddress);
-            TextView field4_data = (TextView) item.findViewById(R.id.field4_daddress);
-
-            field1_data.setText(field1[position]);
-            field2_data.setText(field2[position]);
-            field3_data.setText(field3[position]);
-            field4_data.setText(field4[position]);
-
-            return item;
-        }
+            }
+        });
     }
 }

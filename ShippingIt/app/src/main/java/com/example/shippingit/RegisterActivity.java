@@ -115,7 +115,7 @@ public class RegisterActivity extends AppCompatActivity {
                         pnumber_data = dataSnapshot.child("pnumber").getValue(String.class);
                         id_data = dataSnapshot.child("id").getValue(String.class);
                         workplace_data = dataSnapshot.child("workplace").getValue(String.class);
-                        value = dataSnapshot.getKey().toString();
+                        value = dataSnapshot.getKey();
                         break;
                     }
                 }
