@@ -17,53 +17,73 @@
             android:orientation="vertical"
             android:padding="20dp">
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="10dp">
+                android:padding="10dp"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
 
                 <TextView
                     android:id="@+id/noData_Daily1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginStart="50dp"
-                    android:layout_marginTop="100dp"
-                    android:layout_marginEnd="50dp"
-                    android:layout_marginBottom="100dp"
                     android:gravity="center"
                     android:text="@string/no_data"
                     android:textColor="@color/black"
                     android:textSize="30sp"
                     android:textStyle="bold" />
-            </RelativeLayout>
 
-            <RelativeLayout
+                <TextView
+                    android:id="@+id/daily_added"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/daily_added"
+                    android:textColor="@color/brown"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textAlignment="center"/>
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/Daily1Chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="500dp"
+                    android:paddingTop="20dp" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="10dp">
+                android:padding="10dp"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
 
                 <TextView
                     android:id="@+id/noData_Daily2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginStart="50dp"
-                    android:layout_marginTop="100dp"
-                    android:layout_marginEnd="50dp"
-                    android:layout_marginBottom="100dp"
                     android:gravity="center"
                     android:text="@string/no_data"
                     android:textColor="@color/black"
                     android:textSize="30sp"
                     android:textStyle="bold" />
-            </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/daily_sent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/daily_sent"
+                    android:textColor="@color/brown"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textAlignment="center"/>
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/Daily2Chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="500dp"
+                    android:paddingTop="20dp" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </FrameLayout>

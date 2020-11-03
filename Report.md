@@ -6,5 +6,5 @@
 - Drawer Layout For Every Type Of Account
 - Handling Drawer Layout's Buttons
 - Fragment Layouts Created
-- GUI In A Progress --- PART 9
-- Backend In A Progress --- PART 9
+- GUI In A Progress --- PART 10 FINAL
+- Backend In A Progress --- PART 10 FINAL

@@ -71,5 +71,4 @@
         android:id="@+id/navigation_emp"
         app:headerLayout="@layout/header"
         app:menu="@menu/emp_menu"/>
-
 </androidx.drawerlayout.widget.DrawerLayout>

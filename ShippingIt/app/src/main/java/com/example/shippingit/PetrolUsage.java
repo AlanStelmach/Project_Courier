@@ -102,11 +102,11 @@ public class PetrolUsage extends Fragment {
         final int year = calendar.get(Calendar.YEAR);
         final int month = calendar.get(Calendar.MONTH)+1;
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("CostProfit").child(String.valueOf(year)).child(String.valueOf(month));
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                cost = String.valueOf(snapshot.child("CostProfit").child(String.valueOf(year)).child(String.valueOf(month)).child("cost").getValue(String.class));
+                cost = snapshot.child("cost").getValue(String.class);
             }
 
             @Override

@@ -96,7 +96,8 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="0dp"
                         android:textColor="@color/black"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/textView28"
@@ -121,7 +122,8 @@
                         android:layout_marginTop="0dp"
                         android:layout_marginEnd="0dp"
                         android:textColor="@color/black"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/textView30"
@@ -146,7 +148,8 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="0dp"
                         android:textColor="@color/black"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/textView32"
@@ -171,7 +174,8 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="0dp"
                         android:textColor="@color/black"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/textView34"
@@ -196,7 +200,8 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="0dp"
                         android:textColor="@color/black"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/textView36"
@@ -221,7 +226,8 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="0dp"
                         android:textColor="@color/black"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/textView38"
@@ -246,7 +252,8 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="0dp"
                         android:textColor="@color/black"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/worker_added"
@@ -259,7 +266,8 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="0dp"
                         android:textColor="@color/black"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/worker_delivered"
@@ -272,7 +280,8 @@
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="0dp"
                         android:textColor="@color/black"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
                 </RelativeLayout>
             </LinearLayout>
         </ScrollView>
