@@ -1,5 +1,6 @@
 package com.example.shippingit;
 
+import android.content.Context;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -34,6 +35,9 @@ public class ParcelsQueue extends Fragment {
     private String added_count;
     private String unique_item_id = "";
     private int item_position;
+    private View view;
+    private Context context;
+    private String all;
 
     public ParcelsQueue() {
     }
@@ -41,12 +45,14 @@ public class ParcelsQueue extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_parcels_queue, container, false);
+        view = inflater.inflate(R.layout.fragment_parcels_queue, container, false);
+        context = getContext();
 
         no_data = (TextView) view.findViewById(R.id.noData_PQueue);
         add_to_stock = (Button) view.findViewById(R.id.add_to_stock);
         listView = (ListView) view.findViewById(R.id.listView_PQueue);
         no_data.setVisibility(View.GONE);
+        onStart();
 
         add_to_stock.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,15 +71,7 @@ public class ParcelsQueue extends Fragment {
                     {
                         day = 7;
                     }
-                    int x, z;
-                    if(amount == null)
-                    {
-                        x = 0;
-                    }
-                    else
-                    {
-                        x = Integer.parseInt(amount);
-                    }
+                    int z;
                     if (added_count == null)
                     {
                         z = 0;
@@ -90,10 +88,32 @@ public class ParcelsQueue extends Fragment {
                     final HashMap<String, Object> map = new HashMap<>();
                     map.put("added", String.valueOf(result));
                     FirebaseDatabase.getInstance().getReference("PersonalStats").child(uid).updateChildren(map);
+                    int x;
+                    if(amount == null)
+                    {
+                        x = 0;
+                    }
+                    else
+                    {
+                        x = Integer.parseInt(amount);
+                    }
                     int result1 = x + 1;
                     final HashMap<String, Object> dailymap = new HashMap<>();
                     dailymap.put("daily_amount", String.valueOf(result1));
                     FirebaseDatabase.getInstance().getReference("DailyStats").child("AddedDaily").child(String.valueOf(year)).child(String.valueOf(month)).child(String.valueOf(day)).updateChildren(dailymap);
+                    int y;
+                    if(all == null)
+                    {
+                        y = 0;
+                    }
+                    else
+                    {
+                        y = Integer.parseInt(all);
+                    }
+                    int result2 = y + 1;
+                    final HashMap<String, Object> allmap = new HashMap<>();
+                    allmap.put("all", String.valueOf(result2));
+                    FirebaseDatabase.getInstance().getReference("DailyStats").child("DeliveredToAll").child(String.valueOf(year)).child(String.valueOf(month)).updateChildren(allmap);
                     Toast.makeText(getActivity(), "Success!", Toast.LENGTH_LONG).show();
                 }
             }
@@ -124,7 +144,7 @@ public class ParcelsQueue extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-
+        System.out.println(getContext());
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH)+1;
@@ -156,8 +176,8 @@ public class ParcelsQueue extends Fragment {
                 {
                     no_data.setVisibility(View.VISIBLE);
                 }
-                CustomArrayAdapter customArrayAdapter = new CustomArrayAdapter(getContext(), arrayList); // NULL POINTER EXP - MAYBE IT WILL BE GOOD IDEA TO CLEAR ARRAYS IN BUTTON EVENT
-                listView.setAdapter(customArrayAdapter); // OR CALLING FROM THERE onStart() METHOD
+                CustomArrayAdapter customArrayAdapter = new CustomArrayAdapter(context, arrayList);
+                listView.setAdapter(customArrayAdapter);
             }
 
             @Override
@@ -188,5 +208,17 @@ public class ParcelsQueue extends Fragment {
 
             }
         });
+        DatabaseReference ref4 = FirebaseDatabase.getInstance().getReference("DailyStats").child("DeliveredToAll").child(String.valueOf(year)).child(String.valueOf(month));
+       ref4.addValueEventListener(new ValueEventListener() {
+           @Override
+           public void onDataChange(@NonNull DataSnapshot snapshot) {
+               all = snapshot.child("all").getValue(String.class);
+           }
+
+           @Override
+           public void onCancelled(@NonNull DatabaseError error) {
+
+           }
+       });
     }
 }

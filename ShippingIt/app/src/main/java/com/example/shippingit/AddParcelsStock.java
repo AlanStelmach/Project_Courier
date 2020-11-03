@@ -1,5 +1,6 @@
 package com.example.shippingit;
 
+import android.content.Context;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -36,6 +37,8 @@ public class AddParcelsStock extends Fragment {
     private String unique_item_id = "";
     private int item_position;
     private String added_count;
+    private View view;
+    private Context context;
 
     public AddParcelsStock() {
     }
@@ -43,7 +46,8 @@ public class AddParcelsStock extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_add_parcels_stock, container, false);
+        view = inflater.inflate(R.layout.fragment_add_parcels_stock, container, false);
+        context = getContext();
 
         add_parcel = (Button) view.findViewById(R.id.add_parcel);
         deliver_to_stock = (Button) view.findViewById(R.id.deliver_to_stock);
@@ -128,7 +132,7 @@ public class AddParcelsStock extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-
+        System.out.println(getContext());
         TextView header_emp = (TextView) getActivity().findViewById(R.id.header_name_courier);
         header_emp.setText(R.string.parcels_stock);
 
@@ -155,7 +159,7 @@ public class AddParcelsStock extends Fragment {
                 {
                     no_data.setVisibility(View.VISIBLE);
                 }
-                CustomArrayAdapter customArrayAdapter = new CustomArrayAdapter(getContext(), arrayList);
+                CustomArrayAdapter customArrayAdapter = new CustomArrayAdapter(context, arrayList);
                 listView.setAdapter(customArrayAdapter);
             }
 

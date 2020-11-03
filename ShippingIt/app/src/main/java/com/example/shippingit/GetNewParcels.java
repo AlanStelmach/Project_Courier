@@ -1,5 +1,6 @@
 package com.example.shippingit;
 
+import android.content.Context;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -32,6 +33,8 @@ public class GetNewParcels extends Fragment {
     private String uid;
     private String unique_item_id = "";
     private int item_position;
+    private View view;
+    private Context context;
 
     public GetNewParcels() {
     }
@@ -39,12 +42,14 @@ public class GetNewParcels extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_get_new_parcels, container, false);
+        view = inflater.inflate(R.layout.fragment_get_new_parcels, container, false);
+        context = getContext();
 
         no_data = (TextView) view.findViewById(R.id.noData_GNParcels);
         get_new = (Button) view.findViewById(R.id.get_new);
         listView = (ListView) view.findViewById(R.id.listView_GNParcels);
         no_data.setVisibility(View.GONE);
+        onStart();
 
         get_new.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +60,6 @@ public class GetNewParcels extends Fragment {
                 }
                 else
                 {
-                    // HAVE TO ADD DAILY STATS - ONE IN STOCK WORKER
                     Calendar calendar = Calendar.getInstance();
                     int day = calendar.get(Calendar.DAY_OF_WEEK)-1;
                     if(day == 0)
@@ -96,7 +100,7 @@ public class GetNewParcels extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-
+        System.out.println(getContext());
         auth = FirebaseAuth.getInstance();
         uid = auth.getCurrentUser().getUid();
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("ParcelsAtStock");
@@ -120,7 +124,7 @@ public class GetNewParcels extends Fragment {
                 {
                     no_data.setVisibility(View.VISIBLE);
                 }
-                CustomArrayAdapter customArrayAdapter = new CustomArrayAdapter(getContext(), arrayList); // NULL POINTER EXP
+                CustomArrayAdapter customArrayAdapter = new CustomArrayAdapter(context, arrayList);
                 listView.setAdapter(customArrayAdapter);
             }
 

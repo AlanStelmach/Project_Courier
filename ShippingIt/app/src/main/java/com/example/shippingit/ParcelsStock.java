@@ -1,5 +1,6 @@
 package com.example.shippingit;
 
+import android.content.Context;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -20,6 +21,8 @@ public class ParcelsStock extends Fragment {
     private TextView no_data;
     private ListView listView;
     private ArrayList<Parcel> arrayList = new ArrayList<>();
+    private View view;
+    private Context context;
 
     public ParcelsStock() {
     }
@@ -27,11 +30,13 @@ public class ParcelsStock extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_parcels_stock, container, false);
+        view = inflater.inflate(R.layout.fragment_parcels_stock, container, false);
+        context = getContext();
 
         no_data = (TextView) view.findViewById(R.id.noData_PStock);
         listView = (ListView) view.findViewById(R.id.listView_PStock);
         no_data.setVisibility(View.GONE);
+        onStart();
 
         return view;
     }
@@ -39,7 +44,7 @@ public class ParcelsStock extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-
+        System.out.println(getContext());
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("ParcelsAtStock");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -58,7 +63,7 @@ public class ParcelsStock extends Fragment {
                 {
                     no_data.setVisibility(View.VISIBLE);
                 }
-                CustomArrayAdapter customArrayAdapter = new CustomArrayAdapter(getContext(), arrayList);
+                CustomArrayAdapter customArrayAdapter = new CustomArrayAdapter(context, arrayList);
                 listView.setAdapter(customArrayAdapter);
             }
 

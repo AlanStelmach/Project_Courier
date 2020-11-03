@@ -1,5 +1,6 @@
 package com.example.shippingit;
 
+import android.content.Context;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -33,6 +34,9 @@ public class ParcelsDelivery extends Fragment {
     private String delivered_count;
     private String unique_item_id = "";
     private String amount;
+    private View view;
+    private Context context;
+    private String delivered;
 
     public ParcelsDelivery() {
     }
@@ -40,12 +44,14 @@ public class ParcelsDelivery extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_parcels_delivery, container, false);
+        view = inflater.inflate(R.layout.fragment_parcels_delivery, container, false);
+        context = getContext();
 
         no_data = (TextView) view.findViewById(R.id.noData_PDelivery);
         deliver = (Button) view.findViewById(R.id.deliver);
         listView = (ListView) view.findViewById(R.id.listView_PDelivery);
         no_data.setVisibility(View.GONE);
+        onStart();
 
         deliver.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,6 +99,19 @@ public class ParcelsDelivery extends Fragment {
                     final HashMap<String, Object> dailymap = new HashMap<>();
                     dailymap.put("daily_amount", String.valueOf(result1));
                     FirebaseDatabase.getInstance().getReference("DailyStats").child("SendDaily").child(String.valueOf(year)).child(String.valueOf(month)).child(String.valueOf(day)).updateChildren(dailymap);
+                    int y;
+                    if(delivered == null)
+                    {
+                        y = 0;
+                    }
+                    else
+                    {
+                        y = Integer.parseInt(delivered);
+                    }
+                    int result2 = y + 1;
+                    final HashMap<String, Object> deliveredmap = new HashMap<>();
+                    deliveredmap.put("delivered", String.valueOf(result2));
+                    FirebaseDatabase.getInstance().getReference("DailyStats").child("DeliveredToAll").child(String.valueOf(year)).child(String.valueOf(month)).updateChildren(deliveredmap);
                     Toast.makeText(getActivity(), "Success!", Toast.LENGTH_LONG).show();
                 }
             }
@@ -121,8 +140,10 @@ public class ParcelsDelivery extends Fragment {
 
     @Override
     public void onStart() {
+        System.out.println(getActivity());
+        System.out.println(getContext());
         super.onStart();
-
+        System.out.println(getContext());
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH)+1;
@@ -154,7 +175,7 @@ public class ParcelsDelivery extends Fragment {
                 {
                     no_data.setVisibility(View.VISIBLE);
                 }
-                CustomArrayAdapter customArrayAdapter = new CustomArrayAdapter(getContext(), arrayList);
+                CustomArrayAdapter customArrayAdapter = new CustomArrayAdapter(context, arrayList);
                 listView.setAdapter(customArrayAdapter);
             }
 
@@ -179,6 +200,18 @@ public class ParcelsDelivery extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 amount = snapshot.child("daily_amount").getValue(String.class);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        DatabaseReference ref4 = FirebaseDatabase.getInstance().getReference("DailyStats").child("DeliveredToAll").child(String.valueOf(year)).child(String.valueOf(month));
+        ref4.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                delivered = snapshot.child("delivered").getValue(String.class);
             }
 
             @Override
